@@ -2,9 +2,12 @@
 import React from "react";
 import { Button } from "@mui/material";
 import useCustomNavigation from "../routes/useCustomNavigation";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import AddIcon from "@mui/icons-material/Add";
 
 const CreatePostButton = () => {
   const { createPostPage } = useCustomNavigation();
+  const isSmallScreen = useMediaQuery("(max-width:680px)");
 
   const handleCreatePost = () => {
     createPostPage(); // route to create post
@@ -17,7 +20,7 @@ const CreatePostButton = () => {
       onClick={handleCreatePost}
       sx={{ marginLeft: 2 }}
     >
-      Create Post
+      {isSmallScreen ? <AddIcon /> : "Create Post"}
     </Button>
   );
 };
