@@ -11,6 +11,7 @@ export const API_URL = {
 };
 
 export const PAGE_URL = {
+  base: `/`,
   login: `/login`,
   signup: `/signup`,
   posts: `/posts`,

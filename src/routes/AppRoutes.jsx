@@ -25,6 +25,7 @@ const AppRoutes = () => {
           <Route path={PAGE_URL.editPost} element={<EditPost />} />
           <Route path={PAGE_URL.profile} element={<Profile />} />
           <Route path={PAGE_URL.posts} element={<Dashboard />} />
+          <Route path={PAGE_URL.base} element={<Dashboard />} />
         </Route>
         {/* Other routes */}
         <Route path="*" element={<NotFound />} />
