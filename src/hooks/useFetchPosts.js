@@ -33,7 +33,7 @@ const useFetchPosts = (page, limit) => {
 
     fetchPosts();
   }, [page, limit, setError]);
-
+  console.log(posts);
   return { posts, total, nextPage, isLoading, error };
 };
 

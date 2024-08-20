@@ -11,11 +11,11 @@ import {
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { styled } from "@mui/material/styles";
 import { getRandomImage } from "../utils/getRandomImage";
 import useDeletePost from "../hooks/useDeletePost";
+import useCustomNavigation from "../routes/useCustomNavigation";
 
 const PostCard = styled(Card)(({ theme }) => ({
   width: "100%",
@@ -41,7 +41,7 @@ const Post = ({
   showEdit,
   showDelete,
 }) => {
-  const navigate = useNavigate(); // Initialize the navigate function
+  const { viewPostPage, editPostPage } = useCustomNavigation();
   const { deletePost, error: deleteError } = useDeletePost();
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -52,11 +52,11 @@ const Post = ({
   };
   // Event handler functions
   const handleView = () => {
-    navigate(`/posts/${postId}`); // Navigate to the PostView route
+    viewPostPage(postId); // Navigate to the PostView route
   };
 
   const handleEdit = () => {
-    navigate(`/post/edit-post/${postId}`); // Navigate to the EditPost route
+    editPostPage(postId); // Navigate to the EditPost route
   };
 
   const handleDelete = () => {

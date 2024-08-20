@@ -3,7 +3,6 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { Container, Box, Pagination, Snackbar, Alert } from "@mui/material";
 import PostList from "../components/PostList";
-import NavigationTabs from "../components/NavigationTabs";
 import useFetchMyPosts from "../hooks/useFetchMyPosts";
 import useFetchSearchMyPosts from "../hooks/useFetchSearchMyPosts";
 import { defaultPage } from "../utils/pagination";
@@ -52,7 +51,6 @@ const Posts = () => {
             padding: { xs: 0, sm: 4 }, // Zero padding on extra-small screens, padding 4 on small screens and above
           }}
         >
-          <NavigationTabs />
           {error && (
             <Snackbar open autoHideDuration={6000}>
               <Alert severity="error">{error}</Alert>

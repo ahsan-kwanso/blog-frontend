@@ -5,7 +5,8 @@ import { styled } from "@mui/material/styles";
 import { getRandomImage } from "../utils/getRandomImage";
 import { format } from "date-fns";
 import ReplyForm from "./ReplyForm"; // Assuming you have a ReplyForm component
-import { useNavigate } from "react-router-dom";
+import useCustomNavigation from "../routes/useCustomNavigation";
+import { useNavigation } from "react-router-dom";
 
 const PostCard = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(4),
@@ -24,10 +25,10 @@ const PostImage = styled(CardMedia)(({ theme }) => ({
 
 const PostDetails = ({ post, onReplySubmit }) => {
   const [isReplyFormVisible, setIsReplyFormVisible] = useState(false);
-  const navigate = useNavigate();
+  const { postsPage } = useCustomNavigation();
 
   const handleBackToDashboard = () => {
-    navigate("/dashboard");
+    postsPage();
   };
 
   const handleReplyClick = () => {

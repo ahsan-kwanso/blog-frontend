@@ -1,18 +1,17 @@
 // src/pages/Profile.jsx
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { Avatar, Container, Typography, Box, Button } from "@mui/material";
 import { stringAvatar } from "../utils/avatarUtils";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { PAGE_URL } from "../utils/settings";
+import useCustomNavigation from "../routes/useCustomNavigation";
 
 const Profile = () => {
-  const navigate = useNavigate();
+  const { postsPage } = useCustomNavigation();
   const { user } = useContext(AuthContext);
 
   const handleBack = () => {
-    navigate(PAGE_URL.posts);
+    postsPage(); //go to profilePage
   };
 
   return (

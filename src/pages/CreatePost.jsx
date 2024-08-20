@@ -10,7 +10,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import useCustomNavigation from "../routes/useCustomNavigation";
 import useCreatePost from "../hooks/useCreatePost";
 import { postSchema } from "../validations/schemaValidations";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,14 +29,14 @@ const CreatePost = () => {
     },
   });
 
-  const navigate = useNavigate();
+  const { myPostsPage, postsPage } = useCustomNavigation();
   const { createPost, isCreating, error, success } = useCreatePost();
 
   const onSubmit = async (data) => {
     try {
       await createPost(data);
       if (!error) {
-        navigate(PAGE_URL.myPosts);
+        myPostsPage();
       }
     } catch (e) {
       console.error("Unexpected error:", e);
@@ -44,7 +44,7 @@ const CreatePost = () => {
   };
 
   const handleCancel = () => {
-    navigate(PAGE_URL.posts);
+    postsPage();
   };
 
   return (

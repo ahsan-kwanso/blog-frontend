@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-import { useForm } from "react-hook-form";
 import { AuthContext } from "../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
 import { useError } from "../hooks/useError";
+import { useForm } from "react-hook-form";
 import {
   TextField,
   Button,
@@ -13,18 +12,18 @@ import {
   Alert,
 } from "@mui/material";
 import { styled } from "@mui/system";
+import ThemeHeader from "../components/ThemeHeader";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema } from "../validations/schemaValidations";
+import { signupSchema } from "../validations/schemaValidations";
 import useCustomNavigation from "../routes/useCustomNavigation";
-import { PAGE_URL } from "../utils/settings";
-// Define styled components
+
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   marginTop: theme.spacing(8),
-  boxShadow: theme.shadows[5],
+  boxShadow: theme.shadows[3],
 }));
 
 const Form = styled("form")(({ theme }) => ({
@@ -37,8 +36,8 @@ const SubmitButton = styled(Button)(({ theme }) => ({
   marginBottom: theme.spacing(2),
 }));
 
-const SignupLink = styled(Link)(({ theme }) => ({
-  marginTop: theme.spacing(2),
+const LoginLink = styled(Link)(({ theme }) => ({
+  marginTop: theme.spacing(4),
   textDecoration: "none",
   color: theme.palette.primary.main,
   "&:hover": {
@@ -46,32 +45,27 @@ const SignupLink = styled(Link)(({ theme }) => ({
   },
 }));
 
-const Login = () => {
-  const { signin } = useContext(AuthContext);
-  const { postsPage } = useCustomNavigation();
+const Signup = () => {
+  const { signup } = useContext(AuthContext);
   const [error, setError] = useError();
+  const { postsPage } = useCustomNavigation();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    resolver: zodResolver(signupSchema), // Integrate Zod schema here
   });
 
   const onSubmit = async (data) => {
     try {
-      const { status } = await signin(data.email, data.password);
-      // Redirect or show success message
-      if (status === 200) {
-        //console.log(status, data);
-        postsPage();
+      const result = await signup(data.name, data.email, data.password);
+      if (result.data.token) {
+        postsPage(); // Redirect to login or another route
       } else {
         setError("An unexpected error occurred. Try Again Later");
       }
+      // Redirect or show success message
     } catch (error) {
       setError(error.message);
     }
@@ -79,12 +73,22 @@ const Login = () => {
 
   return (
     <>
+      <ThemeHeader />
       <Container component="main" maxWidth="xs" sx={{ marginTop: "100px" }}>
         <StyledPaper>
           <Typography variant="h5" component="h1" sx={{ fontWeight: "bold" }}>
-            Sign In
+            Sign Up
           </Typography>
           <Form onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              label="Name"
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              {...register("name")}
+              error={!!errors.name}
+              helperText={errors.name?.message}
+            />
             <TextField
               label="Email"
               variant="outlined"
@@ -115,11 +119,11 @@ const Login = () => {
               color="primary"
               fullWidth
             >
-              Sign In
+              Sign Up
             </SubmitButton>
-            <SignupLink href={PAGE_URL.signup} variant="body2">
-              Don't have an account? Sign Up
-            </SignupLink>
+            <LoginLink href="/login" variant="body2">
+              Already have an account? Sign In
+            </LoginLink>
           </Form>
         </StyledPaper>
       </Container>
@@ -127,4 +131,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

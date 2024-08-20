@@ -1,8 +1,8 @@
 import React from "react";
 import { useTheme } from "@mui/material/styles";
 import { IconButton, Tooltip } from "@mui/material";
-import Brightness4Icon from "@mui/icons-material/Brightness4"; // Moon icon
-import Brightness7Icon from "@mui/icons-material/Brightness7"; // Sun icon
+import NightlightRoundIcon from "@mui/icons-material/NightlightRound";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
 
 const ThemeToggleButton = ({ toggleTheme }) => {
   const theme = useTheme();
@@ -13,7 +13,7 @@ const ThemeToggleButton = ({ toggleTheme }) => {
       title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
     >
       <IconButton onClick={toggleTheme} color="inherit">
-        {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+        {isDarkMode ? <WbSunnyIcon /> : <NightlightRoundIcon />}
       </IconButton>
     </Tooltip>
   );

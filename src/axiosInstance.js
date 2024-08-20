@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TOKEN_STORED } from "./utils/authUtils";
+import { getToken } from "./utils/authUtils";
 import { backend_url } from "./utils/settings";
 
 const axiosInstance = axios.create({
@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 //Now I don't have to include the token every time
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = TOKEN_STORED;
+    const token = getToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

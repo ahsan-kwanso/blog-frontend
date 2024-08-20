@@ -10,16 +10,17 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useFetchPostById from "../hooks/useFetchPostById";
 import useEditPost from "../hooks/useEditPost";
 import { postSchema } from "../validations/schemaValidations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PAGE_URL } from "../utils/settings";
+import useCustomNavigation from "../routes/useCustomNavigation";
 
 const EditPost = () => {
   const { postId } = useParams(); // Get post ID from URL
-  const navigate = useNavigate();
+  const { myPostsPage, postsPage } = useCustomNavigation();
   const { post, isLoading, error: fetchError } = useFetchPostById(postId);
   const { editPost, loading, error, success } = useEditPost();
 
@@ -50,7 +51,7 @@ const EditPost = () => {
 
       // Only navigate if there is no error
       if (!error) {
-        navigate(PAGE_URL.myPosts);
+        myPostsPage();
       }
     } catch (e) {
       // Handle any unexpected errors (optional)
@@ -59,7 +60,7 @@ const EditPost = () => {
   };
 
   const handleCancel = () => {
-    navigate(PAGE_URL.posts);
+    postsPage();
   };
 
   return (

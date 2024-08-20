@@ -15,6 +15,7 @@ import {
 import { styled } from "@mui/system";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "../validations/schemaValidations";
+import useCustomNavigation from "../routes/useCustomNavigation";
 import { PAGE_URL } from "../utils/settings";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -48,6 +49,7 @@ const LoginLink = styled(Link)(({ theme }) => ({
 const Signup = () => {
   const { signup } = useContext(AuthContext);
   const [error, setError] = useError();
+  const { postsPage } = useCustomNavigation();
   const navigate = useNavigate();
   const {
     register,
@@ -66,7 +68,7 @@ const Signup = () => {
     try {
       const result = await signup(data.name, data.email, data.password);
       if (result.data.token) {
-        navigate(PAGE_URL.posts);
+        postsPage();
       } else {
         setError("An unexpected error occurred. Try Again Later");
       }

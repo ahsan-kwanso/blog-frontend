@@ -2,7 +2,7 @@ import React from "react";
 import { Box, TextField, Button, Alert } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { replySchema } from "../validations/replySchema";
+import { replySchema } from "../validations/schemaValidations";
 import useCreateComment from "../hooks/useCreateComment";
 import { useError } from "../hooks/useError";
 
