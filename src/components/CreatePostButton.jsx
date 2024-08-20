@@ -7,7 +7,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 const CreatePostButton = () => {
   const { createPostPage } = useCustomNavigation();
-  const isSmallScreen = useMediaQuery("(max-width:680px)");
+  const isSmallScreen = useMediaQuery("(max-width:750px)");
 
   const handleCreatePost = () => {
     createPostPage(); // route to create post

@@ -1,3 +1,4 @@
+// src/pages/Posts.js
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { Container, Box, Pagination, Snackbar, Alert } from "@mui/material";
@@ -7,6 +8,7 @@ import useFetchSearchMyPosts from "../hooks/useFetchSearchMyPosts";
 import { defaultPage, defaultLimit } from "../utils/pagination";
 import SearchField from "../components/SearchField";
 import CreatePostButton from "../components/CreatePostButton";
+import Sidebar from "../components/Sidebar";
 
 const Posts = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -34,18 +36,21 @@ const Posts = () => {
   const handlePageChange = (event, value) => {
     const newParams = { page: value, limit };
 
-    // Only add searchQuery if it exists
     if (searchQuery) {
       newParams.search = searchQuery;
     }
 
-    // Update the search params
     setSearchParams(newParams);
   };
 
   return (
-    <>
-      <Container component="main" maxWidth="xl">
+    <Box sx={{ display: "flex" }}>
+      <Sidebar />
+      <Container
+        component="main"
+        maxWidth="xl"
+        sx={{ marginLeft: { xs: 7, sm: 10 }, flexGrow: 1 }}
+      >
         <Box
           sx={{
             padding: { xs: 0, sm: 4 },
@@ -53,8 +58,7 @@ const Posts = () => {
         >
           <Box
             sx={{
-              //position: "sticky",
-              top: 64, // Adjust to the height of your header
+              top: 64,
               zIndex: 1,
               backgroundColor: "inherit",
               display: "flex",
@@ -62,9 +66,9 @@ const Posts = () => {
               alignItems: "center",
               mb: 2,
               mt: {
-                xs: 10, // Margin-top for extra-small screens
-                sm: 5, // Margin-top for small screens
-                md: 3, // Margin-top for medium screens
+                xs: 10,
+                sm: 5,
+                md: 3,
               },
               ml: 2,
               mr: 2,
@@ -102,7 +106,7 @@ const Posts = () => {
           </Box>
         </Box>
       </Container>
-    </>
+    </Box>
   );
 };
 

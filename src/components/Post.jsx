@@ -20,7 +20,6 @@ import useCustomNavigation from "../routes/useCustomNavigation";
 const PostCard = styled(Card)(({ theme }) => ({
   width: "100%",
   margin: theme.spacing(2),
-  maxHeight: 400,
   minHeight: 400,
 }));
 
@@ -30,7 +29,7 @@ const PostImage = styled(CardMedia)(({ theme }) => ({
   width: "100%",
   height: "100%",
   maxHeight: 140,
-  minHeight: 100,
+  minHeight: 140,
 }));
 
 const Post = ({
