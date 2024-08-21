@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import IconButton from "@mui/material/IconButton";
-import ExitToApp from "@mui/icons-material/ExitToApp";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { AuthContext } from "../contexts/AuthContext";
 import useCustomNavigation from "../routes/useCustomNavigation";
-import { Typography, Tooltip } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 
 const SignOutButton = ({ isSmallScreen }) => {
   const { loginPage } = useCustomNavigation();
@@ -39,11 +39,11 @@ const SignOutButton = ({ isSmallScreen }) => {
       }}
     >
       {isSmallScreen ? (
-        <Tooltip title={"Sign out"}>
-          <ExitToApp />
+        <Tooltip title={"Log in"}>
+          <VpnKeyIcon />
         </Tooltip>
       ) : (
-        <Typography sx={{ ml: 2, mr: 2 }}>Sign Out</Typography>
+        <Typography sx={{ ml: 2, mr: 2 }}>Log in</Typography>
       )}
     </IconButton>
   );

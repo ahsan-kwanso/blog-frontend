@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Box, Tabs, Tab } from "@mui/material";
 import { Home } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Person } from "@mui/icons-material";
 import SignOutButton from "../components/SignOutButton";
+import LoginButton from "../components/LoginButton";
 import useCustomNavigation from "../routes/useCustomNavigation";
 import { useSearchParams } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
+import { PAGE_URL } from "../utils/settings";
 
 const Sidebar = () => {
   const isSmallScreen = useMediaQuery("(max-width:800px)");
+  const { user } = useContext(AuthContext);
   const { postsPage, myPostsPage } = useCustomNavigation();
   const [selectedTab, setSelectedTab] = useState(null); // Initialize as null to handle loading state
   const [searchParams] = useSearchParams();
@@ -73,7 +77,11 @@ const Sidebar = () => {
         <Tab label={isSmallScreen ? <Person /> : "My Posts"} />
       </Tabs>
       <Box sx={{ marginTop: "auto", mb: 7, ml: isSmallScreen ? 0 : 2 }}>
-        <SignOutButton isSmallScreen={isSmallScreen} />
+        {user ? (
+          <SignOutButton isSmallScreen={isSmallScreen} />
+        ) : (
+          <LoginButton isSmallScreen={isSmallScreen} />
+        )}
       </Box>
     </Box>
   );
