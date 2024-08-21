@@ -28,7 +28,7 @@ const Posts = () => {
     total: totalSearch,
     isLoading: isLoadingSearch,
     error: errorSearch,
-  } = useFetchSearchPosts(searchQuery, page, limit);
+  } = useFetchSearchPosts(searchQuery, page, limit, isMyPosts);
   const {
     posts: postsDefault,
     total: totalDefault,

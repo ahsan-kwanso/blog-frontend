@@ -1,5 +1,6 @@
 // src/components/SearchBar.jsx
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import { useNavigate, useLocation } from "react-router-dom";
 import { InputBase } from "@mui/material";
@@ -53,7 +54,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const SearchField = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const pathname = location.pathname;
+  const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchChange = (event) => {
@@ -64,11 +65,26 @@ const SearchField = () => {
 
   const debouncedSearch = useCallback(
     debounce((query) => {
-      navigate(
-        `${pathname}?search=${query}&page=${defaultPage}&limit=${defaultLimit}`
-      );
+      // Create a new instance of URLSearchParams based on the current params
+      const newSearchParams = new URLSearchParams(searchParams);
+
+      // Update the search query
+      if (query) {
+        newSearchParams.set("search", query);
+      } else {
+        newSearchParams.delete("search");
+      }
+
+      // Keep the other parameters like filter, page, and limit
+      newSearchParams.set("page", defaultPage);
+      newSearchParams.set("limit", defaultLimit);
+
+      // Construct the new URL with updated search parameters
+      const url = `${location.pathname}?${newSearchParams.toString()}`;
+      console.log(url);
+      navigate(url);
     }, 500),
-    []
+    [location.pathname, searchParams]
   );
 
   return (

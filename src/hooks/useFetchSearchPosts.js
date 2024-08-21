@@ -1,10 +1,12 @@
 // src/hooks/useSearchPosts.js
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axiosInstance from "../axiosInstance";
 import { useError } from "./useError";
 import { API_URL } from "../utils/settings";
+import { AuthContext } from "../contexts/AuthContext";
 
-const useFetchSearchPosts = (title, page, limit) => {
+const useFetchSearchPosts = (title, page, limit, isMyPosts) => {
+  const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [nextPage, setNextPage] = useState(null);
@@ -15,8 +17,19 @@ const useFetchSearchPosts = (title, page, limit) => {
     const fetchPosts = async () => {
       setLoading(true);
       try {
+        const defaultParams = { title, page, limit };
+        const myPostsParams = {
+          title,
+          page,
+          limit,
+          filter: "my-posts",
+          userId: user?.id,
+        };
+
+        // Determine which params to use
+        const params = isMyPosts ? myPostsParams : defaultParams;
         const response = await axiosInstance.get(API_URL.searchPosts, {
-          params: { title, page, limit },
+          params,
         });
         setPosts(response.data.posts);
         setTotalPosts(response.data.total);
@@ -31,7 +44,7 @@ const useFetchSearchPosts = (title, page, limit) => {
     if (title) {
       fetchPosts();
     }
-  }, [title, page, limit, setError]);
+  }, [title, page, limit, setError, isMyPosts]);
 
   return { posts, nextPage, isLoading, error, total };
 };
