@@ -15,7 +15,6 @@ import useFetchPostById from "../hooks/useFetchPostById";
 import useEditPost from "../hooks/useEditPost";
 import { postSchema } from "../validations/schemaValidations";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PAGE_URL } from "../utils/settings";
 import useCustomNavigation from "../routes/useCustomNavigation";
 
 const EditPost = () => {
@@ -89,7 +88,6 @@ const EditPost = () => {
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="title"
               label="Title"
@@ -103,7 +101,6 @@ const EditPost = () => {
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="content"
               label="Content"
