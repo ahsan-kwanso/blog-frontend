@@ -81,7 +81,7 @@ const SearchField = () => {
 
       // Construct the new URL with updated search parameters
       const url = `${location.pathname}?${newSearchParams.toString()}`;
-      console.log(url);
+      // console.log(url);
       navigate(url);
     }, 500),
     [location.pathname, searchParams]
