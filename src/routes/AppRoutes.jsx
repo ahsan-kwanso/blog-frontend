@@ -21,13 +21,13 @@ const AppRoutes = () => {
         <Route element={<PublicRoute />}>
           <Route path={PAGE_URL.login} element={<Login />} />
           <Route path={PAGE_URL.signup} element={<Signup />} />
+          <Route path={PAGE_URL.base} element={<Posts />} />
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path={PAGE_URL.createPost} element={<CreatePost />} />
           <Route path={PAGE_URL.editPost} element={<EditPost />} />
           <Route path={PAGE_URL.profile} element={<Profile />} />
           <Route path={PAGE_URL.posts} element={<Posts />} />
-          <Route path={PAGE_URL.base} element={<Posts />} />
           <Route path={PAGE_URL.viewPost} element={<PostView />} />
           <Route path={PAGE_URL.base} element={<Dashboard />} />
         </Route>
