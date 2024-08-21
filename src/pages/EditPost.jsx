@@ -21,7 +21,7 @@ const EditPost = () => {
   const { postId } = useParams(); // Get post ID from URL
   const { myPostsPage, postsPage } = useCustomNavigation();
   const { post, isLoading, error: fetchError } = useFetchPostById(postId);
-  const { editPost, loading, error, success } = useEditPost();
+  const { editPost, error, success } = useEditPost();
 
   const {
     register,

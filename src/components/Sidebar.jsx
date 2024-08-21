@@ -8,7 +8,6 @@ import LoginButton from "../components/LoginButton";
 import useCustomNavigation from "../routes/useCustomNavigation";
 import { useSearchParams } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
-import { PAGE_URL } from "../utils/settings";
 
 const Sidebar = () => {
   const isSmallScreen = useMediaQuery("(max-width:800px)");

@@ -1,7 +1,6 @@
 // src/pages/NotFound.js
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
-import { PAGE_URL } from "../utils/settings";
 import useCustomNavigation from "../routes/useCustomNavigation";
 
 const NotFound = () => {

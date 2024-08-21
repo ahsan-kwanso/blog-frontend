@@ -14,7 +14,6 @@ import useCustomNavigation from "../routes/useCustomNavigation";
 import useCreatePost from "../hooks/useCreatePost";
 import { postSchema } from "../validations/schemaValidations";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PAGE_URL } from "../utils/settings";
 
 const CreatePost = () => {
   const {

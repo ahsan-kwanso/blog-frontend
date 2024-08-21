@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { useError } from "../hooks/useError";
 import { useForm } from "react-hook-form";
@@ -50,7 +49,6 @@ const Signup = () => {
   const { signup } = useContext(AuthContext);
   const [error, setError] = useError();
   const { postsPage } = useCustomNavigation();
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
