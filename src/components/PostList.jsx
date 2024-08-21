@@ -2,8 +2,10 @@
 import React from "react";
 import { Container, Grid, Skeleton } from "@mui/material";
 import Post from "./Post";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const PostList = ({ posts, isLoading, showEdit, showDelete }) => {
+  const isSmallScreen = useMediaQuery("(max-width:800px)");
   return (
     <Container sx={{ marginTop: "10px" }}>
       <Grid container spacing={2}>
@@ -18,7 +20,13 @@ const PostList = ({ posts, isLoading, showEdit, showDelete }) => {
               </Grid>
             ))
           : posts.map((post) => (
-              <Grid item xs={12} sm={6} md={4} key={post.id}>
+              <Grid
+                item
+                xs={12}
+                sm={isSmallScreen ? 12 : 6}
+                md={4}
+                key={post.id}
+              >
                 <Post
                   postId={post?.id}
                   author={post?.author}

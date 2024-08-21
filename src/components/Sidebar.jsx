@@ -62,7 +62,7 @@ const Sidebar = () => {
         <Tab label={isSmallScreen ? <Home /> : "All Posts"} />
         <Tab label={isSmallScreen ? <Person /> : "My Posts"} />
       </Tabs>
-      <Box sx={{ marginTop: "auto", mb: 10 }}>
+      <Box sx={{ marginTop: "auto", mb: 7, ml: isSmallScreen ? 0 : 2 }}>
         <SignOutButton isSmallScreen={isSmallScreen} />
       </Box>
     </Box>
