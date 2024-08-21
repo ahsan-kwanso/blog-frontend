@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Box, Tabs, Tab, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { Home } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Person } from "@mui/icons-material";
 import SignOutButton from "../components/SignOutButton";
+import useCustomNavigation from "../routes/useCustomNavigation";
 
 const Sidebar = () => {
   const isSmallScreen = useMediaQuery("(max-width:800px)");
-  const navigate = useNavigate();
+  const { postsPage, myPostsPage } = useCustomNavigation();
 
   // State to manage the selected tab
   const [selectedTab, setSelectedTab] = useState(0);
@@ -17,9 +17,9 @@ const Sidebar = () => {
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
     if (newValue === 0) {
-      navigate("/posts");
+      postsPage();
     } else if (newValue === 1) {
-      navigate("/my-posts");
+      myPostsPage();
     }
   };
 

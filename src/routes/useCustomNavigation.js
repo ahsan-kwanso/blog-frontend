@@ -19,7 +19,7 @@ const useCustomNavigation = () => {
     profilePage: () => navigate(PAGE_URL.profile),
     loginPage: () => navigate(PAGE_URL.login),
     signupPage: () => navigate(PAGE_URL.signup),
-    myPostsPage: () => navigate(PAGE_URL.myPosts),
+    myPostsPage: () => navigate(`${PAGE_URL.posts}?posts=me`),
     postsPage: () => navigate(PAGE_URL.posts),
   };
 };

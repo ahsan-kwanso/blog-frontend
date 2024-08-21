@@ -15,7 +15,6 @@ export const PAGE_URL = {
   login: `/login`,
   signup: `/signup`,
   posts: `/posts`,
-  myPosts: `/my-posts`,
   createPost: `/posts/create-post`,
   editPost: `/posts/edit-post/:postId`,
   profile: `/profile`,

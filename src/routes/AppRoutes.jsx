@@ -28,7 +28,6 @@ const AppRoutes = () => {
           <Route path={PAGE_URL.profile} element={<Profile />} />
           <Route path={PAGE_URL.posts} element={<Posts />} />
           <Route path={PAGE_URL.base} element={<Posts />} />
-          <Route path={PAGE_URL.myPosts} element={<Posts />} />
           <Route path={PAGE_URL.viewPost} element={<PostView />} />
           <Route path={PAGE_URL.base} element={<Dashboard />} />
         </Route>
