@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Box,
@@ -6,6 +6,7 @@ import {
   Skeleton,
   Alert,
   Snackbar,
+  Button,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { styled } from "@mui/material/styles";
@@ -13,6 +14,7 @@ import PostDetails from "../components/PostDetails";
 import CommentSection from "../components/CommentSection";
 import useFetchPostById from "../hooks/useFetchPostById";
 import useFetchCommentsByPostId from "../hooks/useFetchCommentsByPostId";
+import useCustomNavigation from "../routes/useCustomNavigation";
 
 // Styled components for Skeleton
 const StyledSkeleton = styled(Skeleton)(({ theme }) => ({
@@ -24,10 +26,20 @@ const PostView = () => {
   const [refresh, setRefresh] = useState(0);
   const { post, loading, error } = useFetchPostById(postId);
   const { comments } = useFetchCommentsByPostId(postId, refresh);
-
+  const { postsPage } = useCustomNavigation();
   const handleCommentSubmit = () => {
     setRefresh((prev) => prev + 1); // Increment refresh count to trigger refetch
   };
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        postsPage();
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   return (
     <Container
@@ -47,9 +59,14 @@ const PostView = () => {
         }}
       >
         {error && (
-          <Snackbar open autoHideDuration={6000}>
-            <Alert severity="error">{error}</Alert>
-          </Snackbar>
+          <Box sx={{ textAlign: "center" }}>
+            <Snackbar open autoHideDuration={6000}>
+              <Alert severity="error">{error}</Alert>
+            </Snackbar>
+            <Alert severity="info" sx={{ mb: 2 }}>
+              No post found.
+            </Alert>
+          </Box>
         )}
         {loading ? (
           <>
