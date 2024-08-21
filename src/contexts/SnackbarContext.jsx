@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState } from "react";
 import { Snackbar, Alert, styled } from "@mui/material";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-
 // Initialize SweetAlert2
 const MySwal = withReactContent(Swal);
 
@@ -27,6 +26,7 @@ const StyledSnackbar = styled(Snackbar)(({ theme }) => ({
 
 // SnackbarProvider Component
 export const SnackbarProvider = ({ children }) => {
+  const themeMode = localStorage.getItem("themeMode");
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -35,6 +35,8 @@ export const SnackbarProvider = ({ children }) => {
 
   // Show Snackbar with styling
   const showSnackbar = (message, type = "info") => {
+    const backgroundColor = themeMode === "dark" ? "#333" : "#fff"; // Dark or light theme
+    const textColor = themeMode === "dark" ? "#fff" : "#000";
     MySwal.fire({
       title: message,
       icon: type, // 'success', 'error', 'warning', 'info'
@@ -50,7 +52,9 @@ export const SnackbarProvider = ({ children }) => {
         // Add custom styling inline for the toast
         const toast = document.querySelector(".swal-toast");
         if (toast) {
+          toast.style.backgroundColor = backgroundColor;
           toast.style.marginBottom = "70px"; // Adjust this value as needed
+          toast.style.color = textColor; // Apply text color
         }
       },
     });
