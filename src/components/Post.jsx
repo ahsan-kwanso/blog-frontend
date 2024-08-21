@@ -16,6 +16,8 @@ import { styled } from "@mui/material/styles";
 import { getRandomImage } from "../utils/getRandomImage";
 import useDeletePost from "../hooks/useDeletePost";
 import useCustomNavigation from "../routes/useCustomNavigation";
+import ConfirmAlert from "../Alerts/ConfirmAlert";
+import SuccessAlert from "../Alerts/SuccessAlert";
 
 const PostCard = styled(Card)(({ theme }) => ({
   width: "100%",
@@ -49,7 +51,7 @@ const Post = ({
   const onPostDeletion = () => {
     setTimeout(() => {
       window.location.reload(); // Reload the window after showing success message
-    }, 1250); // Adjust delay if needed
+    }, 800); // Adjust delay if needed
   };
   // Event handler functions
   const handleView = () => {
@@ -60,11 +62,19 @@ const Post = ({
     editPostPage(postId); // Navigate to the EditPost route
   };
 
-  const handleDelete = () => {
-    deletePost(postId, () => {
-      setSuccessMessage("Post deleted successfully");
-      onPostDeletion(); // Refresh the posts list after deletion
-    });
+  const handleDelete = async () => {
+    const confirmed = await ConfirmAlert(
+      "Are you sure?",
+      "Do you want to delete this post?"
+    );
+
+    if (confirmed) {
+      deletePost(postId, async () => {
+        await SuccessAlert("Deleted!", "Your post has been deleted.");
+        //setSuccessMessage("Post deleted successfully");
+        onPostDeletion();
+      });
+    }
   };
 
   return (
