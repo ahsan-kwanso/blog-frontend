@@ -12,7 +12,6 @@ import PostView from "../pages/PostView";
 import Footer from "../components/Footer";
 import NotFound from "../pages/NotFound";
 import { PAGE_URL } from "../utils/settings";
-import Dashboard from "../pages/Dashboard";
 
 const AppRoutes = () => {
   return (
@@ -29,7 +28,6 @@ const AppRoutes = () => {
           <Route path={PAGE_URL.profile} element={<Profile />} />
           <Route path={PAGE_URL.posts} element={<Posts />} />
           <Route path={PAGE_URL.viewPost} element={<PostView />} />
-          <Route path={PAGE_URL.base} element={<Dashboard />} />
         </Route>
         {/* Other routes */}
         <Route path="*" element={<NotFound />} />
