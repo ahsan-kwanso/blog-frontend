@@ -6,7 +6,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import ThemeToggleButton from "./ThemeToggleButton";
 import ProfileButton from "./ProfileButton";
-import SignOutButton from "./SignOutButton";
 import { useTheme } from "../contexts/ThemeContext";
 
 // Custom Typography component for "Dribble"
@@ -33,7 +32,6 @@ const PrivateHeader = () => {
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <ProfileButton />
             <ThemeToggleButton toggleTheme={toggleTheme} />
-            <SignOutButton />
           </Box>
         </Toolbar>
       </AppBar>
