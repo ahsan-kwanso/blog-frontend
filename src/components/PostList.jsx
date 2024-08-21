@@ -11,7 +11,7 @@ const PostList = ({ posts, isLoading, showEdit, showDelete }) => {
       <Grid container spacing={2}>
         {isLoading
           ? Array.from(new Array(6)).map((_, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
+              <Grid item xs={12} sm={isSmallScreen ? 12 : 6} md={4} key={index}>
                 <Skeleton variant="rectangular" width="100%" height={140} />
                 <Skeleton width="60%" />
                 <Skeleton width="40%" />
