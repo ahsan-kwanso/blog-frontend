@@ -1,17 +1,22 @@
-import React, { useState } from "react";
-import { Box, Tabs, Tab, Button } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Box, Tabs, Tab } from "@mui/material";
 import { Home } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Person } from "@mui/icons-material";
 import SignOutButton from "../components/SignOutButton";
 import useCustomNavigation from "../routes/useCustomNavigation";
+import { useSearchParams } from "react-router-dom";
 
 const Sidebar = () => {
   const isSmallScreen = useMediaQuery("(max-width:800px)");
   const { postsPage, myPostsPage } = useCustomNavigation();
+  const [selectedTab, setSelectedTab] = useState(null); // Initialize as null to handle loading state
+  const [searchParams] = useSearchParams();
 
-  // State to manage the selected tab
-  const [selectedTab, setSelectedTab] = useState(0);
+  useEffect(() => {
+    const filter = searchParams.get("filter");
+    setSelectedTab(filter === "my-posts" ? 1 : 0);
+  }, [searchParams]);
 
   // Handle tab change
   const handleTabChange = (event, newValue) => {
@@ -22,6 +27,11 @@ const Sidebar = () => {
       myPostsPage();
     }
   };
+
+  // Render nothing until the selectedTab is properly set
+  if (selectedTab === null) {
+    return null;
+  }
 
   return (
     <Box

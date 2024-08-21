@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axiosInstance from "../axiosInstance";
 import { useError } from "./useError";
 import { API_URL } from "../utils/settings";
+import { AuthContext } from "../contexts/AuthContext";
 
-const useFetchPosts = (page, limit) => {
+const useFetchPosts = (isMyPosts, page, limit) => {
+  const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [total, setTotal] = useState(0);
   const [nextPage, setNextPage] = useState(null);
@@ -16,24 +18,33 @@ const useFetchPosts = (page, limit) => {
         setIsLoading(true);
         await new Promise((resolve) => setTimeout(resolve, 400));
 
-        const response = await axiosInstance.get(
-          `${API_URL.post}?page=${page}&limit=${limit}`
-        );
+        // Construct params object conditionally
+        const defaultParams = { page, limit };
+        const myPostsParams = {
+          page,
+          limit,
+          filter: "my-posts",
+          userId: user?.id,
+        };
+
+        // Determine which params to use
+        const params = isMyPosts ? myPostsParams : defaultParams;
+
+        const response = await axiosInstance.get(API_URL.post, { params });
         const { posts, total, nextPage } = response.data;
+
         setPosts(posts);
         setTotal(total);
         setNextPage(nextPage);
       } catch (err) {
-        //console.log(err);
-        setError("Failed to Load Posts");
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchPosts();
-  }, [page, limit, setError]);
-  console.log(posts);
+  }, [isMyPosts, page, limit, user?.id, setError]);
+
   return { posts, total, nextPage, isLoading, error };
 };
 

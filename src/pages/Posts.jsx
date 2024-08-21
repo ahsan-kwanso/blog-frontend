@@ -4,7 +4,9 @@ import { useSearchParams } from "react-router-dom";
 import { Container, Box, Pagination, Snackbar, Alert } from "@mui/material";
 import PostList from "../components/PostList";
 import useFetchMyPosts from "../hooks/useFetchMyPosts";
-import useFetchSearchMyPosts from "../hooks/useFetchSearchMyPosts";
+// import useFetchSearchMyPosts from "../hooks/useFetchSearchMyPosts";
+import useFetchPosts from "../hooks/useFetchPosts";
+import useFetchSearchPosts from "../hooks/useFetchSearchMyPosts";
 import { defaultPage, defaultLimit } from "../utils/pagination";
 import SearchField from "../components/SearchField";
 import CreatePostButton from "../components/CreatePostButton";
@@ -15,20 +17,20 @@ const Posts = () => {
   const page = parseInt(searchParams.get("page")) || defaultPage;
   const limit = parseInt(searchParams.get("limit")) || defaultLimit;
   const searchQuery = searchParams.get("search") || "";
+  const isMyPosts = searchParams.get("filter") === "my-posts";
 
   const {
     posts: postsSearch,
     total: totalSearch,
     isLoading: isLoadingSearch,
     error: errorSearch,
-  } = useFetchSearchMyPosts(searchQuery, page, limit);
+  } = useFetchSearchPosts(searchQuery, page, limit);
   const {
     posts: postsDefault,
     total: totalDefault,
     isLoading: isLoadingDefault,
     error: errorDefault,
-  } = useFetchMyPosts(page, limit);
-
+  } = useFetchPosts(isMyPosts, page, limit);
   const posts = searchQuery ? postsSearch : postsDefault;
   const total = searchQuery ? totalSearch : totalDefault;
   const isLoading = searchQuery ? isLoadingSearch : isLoadingDefault;
@@ -38,6 +40,9 @@ const Posts = () => {
 
     if (searchQuery) {
       newParams.search = searchQuery;
+    }
+    if (isMyPosts) {
+      newParams.filter = "my-posts";
     }
 
     setSearchParams(newParams);
@@ -85,8 +90,8 @@ const Posts = () => {
           <PostList
             posts={posts}
             isLoading={isLoading}
-            showEdit={true}
-            showDelete={true}
+            showEdit={isMyPosts ? true : false}
+            showDelete={isMyPosts ? true : false}
           />
           <Box
             sx={{
