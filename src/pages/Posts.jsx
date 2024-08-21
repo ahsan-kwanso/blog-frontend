@@ -1,12 +1,16 @@
-// src/pages/Posts.js
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import { Container, Box, Pagination, Snackbar, Alert } from "@mui/material";
+import {
+  Container,
+  Box,
+  Pagination,
+  Snackbar,
+  Alert,
+  Typography,
+} from "@mui/material";
 import PostList from "../components/PostList";
-import useFetchMyPosts from "../hooks/useFetchMyPosts";
-// import useFetchSearchMyPosts from "../hooks/useFetchSearchMyPosts";
 import useFetchPosts from "../hooks/useFetchPosts";
-import useFetchSearchPosts from "../hooks/useFetchSearchMyPosts";
+import useFetchSearchPosts from "../hooks/useFetchSearchPosts";
 import { defaultPage, defaultLimit } from "../utils/pagination";
 import SearchField from "../components/SearchField";
 import CreatePostButton from "../components/CreatePostButton";
@@ -31,10 +35,12 @@ const Posts = () => {
     isLoading: isLoadingDefault,
     error: errorDefault,
   } = useFetchPosts(isMyPosts, page, limit);
+
   const posts = searchQuery ? postsSearch : postsDefault;
   const total = searchQuery ? totalSearch : totalDefault;
   const isLoading = searchQuery ? isLoadingSearch : isLoadingDefault;
   const error = searchQuery ? errorSearch : errorDefault;
+
   const handlePageChange = (event, value) => {
     const newParams = { page: value, limit };
 
@@ -87,28 +93,35 @@ const Posts = () => {
               <Alert severity="error">{error}</Alert>
             </Snackbar>
           )}
-          <PostList
-            posts={posts}
-            isLoading={isLoading}
-            showEdit={isMyPosts ? true : false}
-            showDelete={isMyPosts ? true : false}
-          />
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: 2,
-              mb: 5,
-            }}
-          >
-            <Pagination
-              count={Math.ceil(total / limit)}
-              page={page}
-              onChange={handlePageChange}
-              color="primary"
-              sx={{ mb: { xs: 4, sm: 2 } }}
+          {posts.length === 0 && (
+            <Typography variant="h6" align="center">
+              No posts available.
+            </Typography>
+          )}
+          <>
+            <PostList
+              posts={posts}
+              isLoading={isLoading}
+              showEdit={isMyPosts ? true : false}
+              showDelete={isMyPosts ? true : false}
             />
-          </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: 2,
+                mb: 5,
+              }}
+            >
+              <Pagination
+                count={Math.ceil(total / limit)}
+                page={page}
+                onChange={handlePageChange}
+                color="primary"
+                sx={{ mb: { xs: 4, sm: 2 } }}
+              />
+            </Box>
+          </>
         </Box>
       </Container>
     </Box>
