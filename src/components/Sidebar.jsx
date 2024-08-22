@@ -70,6 +70,14 @@ const Sidebar = () => {
               // Adjust margin for icons
               mr: isSmallScreen ? 5 : 1,
             },
+            "&:hover": {
+              "& .MuiTypography-root": {
+                color: (theme) => theme.palette.primary.main,
+              },
+              "& svg": {
+                color: (theme) => theme.palette.primary.main,
+              },
+            },
           },
         }}
       >
