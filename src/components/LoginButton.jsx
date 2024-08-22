@@ -1,16 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import IconButton from "@mui/material/IconButton";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
-import { AuthContext } from "../contexts/AuthContext";
 import useCustomNavigation from "../routes/useCustomNavigation";
 import { Tooltip, Typography } from "@mui/material";
 
-const SignOutButton = ({ isSmallScreen }) => {
+const LoginButton = ({ isSmallScreen }) => {
   const { loginPage } = useCustomNavigation();
-  const { signout } = useContext(AuthContext);
 
-  const handleSignOut = () => {
-    signout();
+  const handleLogin = () => {
     loginPage(); // Redirect to sign-in page after signing out
   };
 
@@ -18,7 +15,7 @@ const SignOutButton = ({ isSmallScreen }) => {
     <IconButton
       size="large"
       aria-label="sign out"
-      onClick={handleSignOut}
+      onClick={handleLogin}
       color="inherit"
       sx={{
         display: "flex",
@@ -27,13 +24,22 @@ const SignOutButton = ({ isSmallScreen }) => {
         backgroundColor: "none", // Default background color
         borderRadius: "8px", // Rounded corners
         padding: "8px", // Padding inside the button
+        backgroundColor: (theme) =>
+          theme.palette.mode === "dark"
+            ? theme.palette.grey[800]
+            : theme.palette.grey[300],
+        borderRadius: "8px",
+        padding: "8px",
         "&:hover": {
-          backgroundColor: "primary", // Darker blue on hover
+          backgroundColor: (theme) =>
+            theme.palette.mode === "dark"
+              ? theme.palette.grey[700]
+              : theme.palette.grey[400],
           "& .MuiTypography-root": {
-            color: (theme) => theme.palette.secondary.main, // Change text color to secondary color on hover
+            color: (theme) => theme.palette.primary.main,
           },
           "& svg": {
-            color: (theme) => theme.palette.secondary.main, // Change icon color to secondary color on hover
+            color: (theme) => theme.palette.primary.main,
           },
         },
       }}
@@ -49,4 +55,4 @@ const SignOutButton = ({ isSmallScreen }) => {
   );
 };
 
-export default SignOutButton;
+export default LoginButton;

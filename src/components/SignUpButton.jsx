@@ -1,24 +1,21 @@
-import React, { useContext } from "react";
+import React from "react";
 import IconButton from "@mui/material/IconButton";
-import ExitToApp from "@mui/icons-material/ExitToApp";
-import { AuthContext } from "../contexts/AuthContext";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
 import useCustomNavigation from "../routes/useCustomNavigation";
-import { Typography, Tooltip } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 
-const SignOutButton = ({ isSmallScreen }) => {
-  const { loginPage } = useCustomNavigation();
-  const { signout } = useContext(AuthContext);
+const SignUpButton = ({ isSmallScreen }) => {
+  const { signupPage } = useCustomNavigation();
 
-  const handleSignOut = () => {
-    signout();
-    loginPage(); // Redirect to sign-in page after signing out
+  const handleSignUp = () => {
+    signupPage();
   };
 
   return (
     <IconButton
       size="large"
       aria-label="sign out"
-      onClick={handleSignOut}
+      onClick={handleSignUp}
       color="inherit"
       sx={{
         display: "flex",
@@ -39,23 +36,23 @@ const SignOutButton = ({ isSmallScreen }) => {
               ? theme.palette.grey[700]
               : theme.palette.grey[400],
           "& .MuiTypography-root": {
-            color: (theme) => theme.palette.secondary.main,
+            color: (theme) => theme.palette.primary.main,
           },
           "& svg": {
-            color: (theme) => theme.palette.secondary.main,
+            color: (theme) => theme.palette.primary.main,
           },
         },
       }}
     >
       {isSmallScreen ? (
-        <Tooltip title={"Sign out"}>
-          <ExitToApp />
+        <Tooltip title={"Sign up"}>
+          <HowToRegIcon />
         </Tooltip>
       ) : (
-        <Typography sx={{ ml: 2, mr: 2 }}>Sign Out</Typography>
+        <Typography sx={{ ml: 1.5, mr: 2 }}>Sign up</Typography>
       )}
     </IconButton>
   );
 };
 
-export default SignOutButton;
+export default SignUpButton;

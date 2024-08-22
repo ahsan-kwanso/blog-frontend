@@ -5,6 +5,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { Person } from "@mui/icons-material";
 import SignOutButton from "../components/SignOutButton";
 import LoginButton from "../components/LoginButton";
+import SignUpButton from "./SignUpButton";
 import useCustomNavigation from "../routes/useCustomNavigation";
 import { useSearchParams } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
@@ -79,7 +80,10 @@ const Sidebar = () => {
         {user ? (
           <SignOutButton isSmallScreen={isSmallScreen} />
         ) : (
-          <LoginButton isSmallScreen={isSmallScreen} />
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <LoginButton isSmallScreen={isSmallScreen} sx={{ mr: 2 }} />
+            <SignUpButton isSmallScreen={isSmallScreen} />
+          </Box>
         )}
       </Box>
     </Box>
