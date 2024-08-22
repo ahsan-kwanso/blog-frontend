@@ -1,8 +1,12 @@
 import React from "react";
 import { AppBar, Typography, styled } from "@mui/material";
+import { lighten } from "@mui/material/styles";
 
 const FooterContainer = styled(AppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
+  backgroundColor:
+    theme.palette.mode === "light"
+      ? lighten(theme.palette.primary.main, 0.1)
+      : theme.palette.background.paper,
   color: theme.palette.text.primary,
   boxShadow: "none",
   padding: theme.spacing(2),
