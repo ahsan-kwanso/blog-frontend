@@ -11,9 +11,15 @@ import { defaultPage, defaultLimit } from "../utils/pagination";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor:
+    theme.palette.mode === "light"
+      ? alpha(theme.palette.grey[200], 0.7) // Grayish background for light theme
+      : alpha(theme.palette.common.white, 0.15),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor:
+      theme.palette.mode === "light"
+        ? alpha(theme.palette.grey[300], 0.75)
+        : alpha(theme.palette.common.white, 0.05),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
