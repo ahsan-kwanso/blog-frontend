@@ -23,7 +23,7 @@ const StyledSkeleton = styled(Skeleton)(({ theme }) => ({
 const PostView = () => {
   const { postId } = useParams();
   const [refresh, setRefresh] = useState(0);
-  const { post, loading, error } = useFetchPostById(postId);
+  const { post, isLoading, error } = useFetchPostById(postId);
   const { comments } = useFetchCommentsByPostId(postId, refresh);
   const { postsPage } = useCustomNavigation();
   const handleCommentSubmit = () => {
@@ -67,7 +67,7 @@ const PostView = () => {
             </Alert>
           </Box>
         )}
-        {loading ? (
+        {isLoading ? (
           <>
             <StyledSkeleton variant="rectangular" height={300} sx={{ mb: 2 }} />
             <StyledSkeleton variant="text" sx={{ fontSize: "2rem", mb: 2 }} />

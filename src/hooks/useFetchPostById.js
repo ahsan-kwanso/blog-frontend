@@ -11,6 +11,8 @@ const useFetchPost = (postId) => {
 
   useEffect(() => {
     const fetchPost = async () => {
+      setIsLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 500));
       try {
         const response = await axiosInstance.get(`${API_URL.post}/${postId}`);
         setPost(response.data);
