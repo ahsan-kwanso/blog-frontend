@@ -9,10 +9,12 @@ import SignUpButton from "./SignUpButton";
 import useCustomNavigation from "../routes/useCustomNavigation";
 import { useSearchParams } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
+import { getToken } from "../utils/authUtils";
 
 const Sidebar = () => {
   const isSmallScreen = useMediaQuery("(max-width:800px)");
   const { user } = useContext(AuthContext);
+  const isUserLoggedIn = getToken();
   const { postsPage, myPostsPage } = useCustomNavigation();
   const [selectedTab, setSelectedTab] = useState(null); // Initialize as null to handle loading state
   const [searchParams] = useSearchParams();
@@ -85,7 +87,7 @@ const Sidebar = () => {
         <Tab label={isSmallScreen ? <Person /> : "My Posts"} />
       </Tabs>
       <Box sx={{ marginTop: "auto", mb: 7, ml: isSmallScreen ? 0 : 2 }}>
-        {user ? (
+        {user && isUserLoggedIn ? (
           <SignOutButton isSmallScreen={isSmallScreen} />
         ) : (
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
